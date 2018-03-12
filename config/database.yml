@@ -1,0 +1,27 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  # For details on connection pooling, see Rails configuration guide
+  # http://guides.rubyonrails.org/configuring.html#database-pooling
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: dreambook_wiki
+  #username: dreambook_wiki
+  #password:
+  #host: localhost
+  #port: 5432
+  #schema_search_path: myapp,sharedapp,public
+  #min_messages: notice
+
+test:
+  <<: *default
+  database: dreambook_wiki_test
+
+production:
+  <<: *default
+  database: dreambook_wiki
+  username: dreambook_wiki
+  password: <%= ENV['DATABASE_PASSWORD'] %>
+  host: localhost
