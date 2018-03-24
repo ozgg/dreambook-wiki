@@ -1,0 +1,14 @@
+<% if collection.any? %>
+  <dl>
+    <% collection.each do |entity| %>
+      <dt><%= pattern_link(entity) %></dt>
+      <dd>
+        <% if entity.essence.blank? %>
+          <%= t('.see_dreambook') %>
+        <% else %>
+          <%= entity.essence %>
+        <% end %>
+      </dd>
+    <% end %>
+  </dl>
+<% end %>

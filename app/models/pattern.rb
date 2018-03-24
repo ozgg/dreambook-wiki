@@ -25,7 +25,9 @@ class Pattern < ApplicationRecord
   scope :with_slug, -> (slug) { where('lower(slug) = ?', slug.downcase) }
   scope :with_language, -> (language) { where(language: language) }
   scope :approved, -> (flag = true) { where(approved: flag) }
-  scope :list_for_administration, -> { order('title asc') }
+  scope :with_title_like, -> (s) { where('title ilike ?', "%#{s}%") unless s.blank? }
+  scope :ordered_by_title, -> { order('title asc') }
+  scope :list_for_administration, -> { ordered_by_title }
 
   # @param [Integer] page
   def self.page_for_administration(page = 1)

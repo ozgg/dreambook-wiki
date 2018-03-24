@@ -1,0 +1,11 @@
+#search-form {
+  > div {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  input {
+    width: auto;
+  }
+}

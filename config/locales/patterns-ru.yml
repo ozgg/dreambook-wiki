@@ -81,3 +81,14 @@ ru:
     form:
       guidelines:
         body: "Максимум 100 символов."
+  dreambook:
+    show:
+      title: "Сонник: %{pattern}"
+    search:
+      title: "Поиск по соннику"
+      heading: "Поиск"
+    form:
+      query: "Запрос"
+      search: "Искать"
+    results:
+      see_dreambook: "Смотрите подробное описание"

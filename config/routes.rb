@@ -5,7 +5,8 @@ Rails.application.routes.draw do
   resources :words, except: [:index, :show]
 
   controller :dreambook do
-    get '/w/:slug' => :show, as: :dreambook_pattern
+    get 'w/(:slug)' => :show, as: :dreambook_pattern, constraints: { slug: /[^\/]+/ }
+    get 'search' => :search
   end
 
   namespace :admin do

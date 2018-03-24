@@ -5,6 +5,12 @@ module PatternsHelper
   end
 
   # @param [Pattern] entity
+  # @param [String] text
+  def pattern_link(entity, text = entity.title)
+    link_to(text, dreambook_pattern_path(slug: entity.slug))
+  end
+
+  # @param [Pattern] entity
   def pattern_image_preview(entity)
     return '' if entity.image.blank?
     versions = "#{entity.image.preview_2x.url} 2x"
@@ -38,7 +44,7 @@ module PatternsHelper
       pattern = Pattern.with_language(language).with_slug(match[:slug]).first
       if pattern.is_a?(Pattern)
         link_text = match[:text].blank? ? pattern.title : match[:text]
-        link_to(link_text, dreambook_pattern_path(slug: pattern.slug))
+        pattern_link(pattern, link_text)
       else
         '<span class="not-found">' + match[:slug] + '</span>'
       end

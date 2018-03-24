@@ -1,0 +1,7 @@
+<%= form_with(url: search_path, local: true, id: 'search-form', method: :get) do %>
+  <div>
+    <%= label_tag(:q, t('.query')) %>
+    <%= text_field_tag(:q, param_from_request(:q), required: true) %>
+    <%= button_tag(t('.search'), name: nil, type: :submit) %>
+  </div>
+<% end %>
