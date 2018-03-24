@@ -1,16 +1,18 @@
 <div class="data">
-  <div><%= admin_pattern_link(entity) %></div>
-  <div class="info">
-    <%= entity.slug %>
+  <div>
+    <%= admin_pattern_link(entity) %>
+    <% unless entity.slug == entity.title %>
+      (<%= entity.slug %>)
+    <% end %>
   </div>
+  <% unless entity.essence.blank? %>
+    <div class="info"><%= entity.essence %></div>
+  <% end %>
   <div class="secondary info">
     <%= t('activerecord.attributes.pattern.language') %>:
     <%= language_name(entity.language) %><br/>
     <%= t(:word_count, count: entity.words_count) %>
   </div>
-  <% unless entity.essence.blank? %>
-    <div class="secondary info"><%= entity.essence %></div>
-  <% end %>
 
   <ul class="actions">
     <li><%= edit_icon(edit_pattern_path(entity)) %></li>

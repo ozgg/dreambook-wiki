@@ -34,6 +34,8 @@
     <% end %>
 
     <dt><%= t('activerecord.attributes.pattern.interpretation') %></dt>
-    <dd><%= @entity.interpretation %></dd>
+    <dd>
+      <div><%= prepare_pattern_text(@entity) %></div>
+    </dd>
   </dl>
 </article>

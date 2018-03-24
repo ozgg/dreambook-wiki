@@ -4,6 +4,10 @@ Rails.application.routes.draw do
   resources :patterns, except: [:index, :show]
   resources :words, except: [:index, :show]
 
+  controller :dreambook do
+    get '/w/:slug' => :show, as: :dreambook_pattern
+  end
+
   namespace :admin do
     resources :patterns, only: [:index, :show] do
       member do
