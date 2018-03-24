@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180323204052) do
+ActiveRecord::Schema.define(version: 20180323230050) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -199,6 +199,45 @@ ActiveRecord::Schema.define(version: 20180323204052) do
     t.string "description", default: "", null: false
   end
 
+  create_table "pattern_links", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "pattern_id", null: false
+    t.integer "other_pattern_id", null: false
+    t.index ["pattern_id", "other_pattern_id"], name: "index_pattern_links_on_pattern_id_and_other_pattern_id", unique: true
+    t.index ["pattern_id"], name: "index_pattern_links_on_pattern_id"
+  end
+
+  create_table "pattern_words", force: :cascade do |t|
+    t.bigint "pattern_id", null: false
+    t.bigint "word_id", null: false
+    t.index ["pattern_id", "word_id"], name: "index_pattern_words_on_pattern_id_and_word_id", unique: true
+    t.index ["pattern_id"], name: "index_pattern_words_on_pattern_id"
+    t.index ["word_id"], name: "index_pattern_words_on_word_id"
+  end
+
+  create_table "patterns", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "language_id", null: false
+    t.bigint "user_id"
+    t.bigint "agent_id"
+    t.inet "ip"
+    t.boolean "approved", default: false, null: false
+    t.boolean "locked", default: false, null: false
+    t.integer "words_count", limit: 2, default: 0, null: false
+    t.string "image"
+    t.string "title", null: false
+    t.string "slug", null: false
+    t.string "essence"
+    t.text "interpretation", null: false
+    t.index ["agent_id"], name: "index_patterns_on_agent_id"
+    t.index ["approved", "language_id"], name: "index_patterns_on_approved_and_language_id"
+    t.index ["language_id"], name: "index_patterns_on_language_id"
+    t.index ["slug", "language_id"], name: "index_patterns_on_slug_and_language_id", unique: true
+    t.index ["user_id"], name: "index_patterns_on_user_id"
+  end
+
   create_table "privilege_group_privileges", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -320,6 +359,16 @@ ActiveRecord::Schema.define(version: 20180323204052) do
     t.index ["slug"], name: "index_users_on_slug", unique: true
   end
 
+  create_table "words", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "language_id", null: false
+    t.integer "patterns_count", limit: 2, default: 0, null: false
+    t.string "body", null: false
+    t.index ["body", "language_id"], name: "index_words_on_body_and_language_id", unique: true
+    t.index ["language_id"], name: "index_words_on_language_id"
+  end
+
   add_foreign_key "agents", "browsers", on_update: :cascade, on_delete: :cascade
   add_foreign_key "codes", "agents", on_update: :cascade, on_delete: :nullify
   add_foreign_key "codes", "code_types", on_update: :cascade, on_delete: :cascade
@@ -339,6 +388,13 @@ ActiveRecord::Schema.define(version: 20180323204052) do
   add_foreign_key "media_folders", "media_folders", column: "parent_id", on_update: :cascade, on_delete: :cascade
   add_foreign_key "media_folders", "users", on_update: :cascade, on_delete: :nullify
   add_foreign_key "metric_values", "metrics", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "pattern_links", "patterns", column: "other_pattern_id", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "pattern_links", "patterns", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "pattern_words", "patterns", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "pattern_words", "words", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "patterns", "agents", on_update: :cascade, on_delete: :nullify
+  add_foreign_key "patterns", "languages", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "patterns", "users", on_update: :cascade, on_delete: :nullify
   add_foreign_key "privilege_group_privileges", "privilege_groups", on_update: :cascade, on_delete: :cascade
   add_foreign_key "privilege_group_privileges", "privileges", on_update: :cascade, on_delete: :cascade
   add_foreign_key "privileges", "privileges", column: "parent_id", on_update: :cascade, on_delete: :cascade
@@ -352,4 +408,5 @@ ActiveRecord::Schema.define(version: 20180323204052) do
   add_foreign_key "users", "languages", on_update: :cascade, on_delete: :nullify
   add_foreign_key "users", "users", column: "inviter_id", on_update: :cascade, on_delete: :nullify
   add_foreign_key "users", "users", column: "native_id", on_update: :cascade, on_delete: :nullify
+  add_foreign_key "words", "languages", on_update: :cascade, on_delete: :cascade
 end

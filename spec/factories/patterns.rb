@@ -1,14 +1,7 @@
 FactoryBot.define do
   factory :pattern do
-    language nil
-    user nil
-    agent nil
-    ip ""
-    approved false
-    locked false
-    image "MyString"
-    title "MyString"
-    essence "MyString"
-    interpretation "MyText"
+    language
+    sequence(:title) { |n| "Образ #{n}" }
+    interpretation "Более детальная интерпретация"
   end
 end
