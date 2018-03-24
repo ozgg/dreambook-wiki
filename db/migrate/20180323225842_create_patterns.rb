@@ -33,17 +33,25 @@ class CreatePatterns < ActiveRecord::Migration[5.1]
   def create_privileges
     chief = Privilege.find_by(slug: 'chief_interpreter')
     if chief.nil?
-      chief = Privilege.create(slug: 'chief_interpreter', name: 'Главный интерпретатор')
+      chief = Privilege.create(slug: 'chief_interpreter', name: 'Главный толкователь')
     end
 
     interpreter = Privilege.find_by(slug: 'interpreter')
     if interpreter.nil?
-      interpreter = Privilege.create(slug: 'interpreter', name: 'Интерпретатор', parent: chief)
+      interpreter = Privilege.create(slug: 'interpreter', name: 'Толкователь', parent: chief)
     end
 
     suggester = Privilege.find_by(slug: 'suggester')
     if suggester.nil?
       Privilege.create(slug: 'suggester', name: 'Предлагатель', parent: interpreter)
     end
+
+    group = PrivilegeGroup.find_by(slug: 'interpreters')
+    if group.nil?
+      group = PrivilegeGroup.create(slug: 'interpreters', name: 'Толкователи')
+    end
+
+    group.add_privilege(chief)
+    group.add_privilege(interpreter)
   end
 end

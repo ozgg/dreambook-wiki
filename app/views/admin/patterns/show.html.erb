@@ -1,0 +1,39 @@
+<% content_for :meta_title, t('.title', title: @entity.title) %>
+<% content_for :breadcrumbs do %>
+  <%= link_to(t('admin.patterns.nav_item.text'), admin_patterns_path) %>
+  <span><%= @entity.title %></span>
+<% end %>
+
+<article>
+  <h1><%= @entity.title %></h1>
+
+  <ul class="actions">
+    <li><%= back_icon(admin_patterns_path) %></li>
+    <li><%= edit_icon(edit_pattern_path(@entity.id)) %></li>
+  </ul>
+
+  <dl>
+    <dt><%= t('activerecord.attributes.pattern.language') %></dt>
+    <dd><%= language_name(@entity.language) %></dd>
+
+    <dt><%= t('activerecord.attributes.pattern.user') %></dt>
+    <dd><%= admin_user_link(@entity.user) %></dd>
+
+    <dt><%= t('activerecord.attributes.pattern.slug') %></dt>
+    <dd><%= @entity.slug %></dd>
+
+    <dt><%= t(:created_at) %></dt>
+    <dd><%= time_tag(@entity.created_at) %></dd>
+
+    <dt><%= t(:updated_at) %></dt>
+    <dd><%= time_tag(@entity.updated_at) %></dd>
+
+    <% unless @entity.essence.blank? %>
+      <dt><%= t('activerecord.attributes.pattern.essence') %></dt>
+      <dd><%= @entity.essence %></dd>
+    <% end %>
+
+    <dt><%= t('activerecord.attributes.pattern.interpretation') %></dt>
+    <dd><%= @entity.interpretation %></dd>
+  </dl>
+</article>

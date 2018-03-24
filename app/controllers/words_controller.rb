@@ -1,2 +1,2 @@
-class WordsController < ApplicationController
+class WordsController < AdminController
 end

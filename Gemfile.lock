@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/Biovision/biovision-base.git
-  revision: 5503dc2bb356f08686c9537709e9eeed52cf2a3c
+  revision: 11f1ab877b9851df10cee20cf0c67edf035bd50d
   specs:
     biovision-base (0.13.180322)
       bcrypt (~> 3.1)

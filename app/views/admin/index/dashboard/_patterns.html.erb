@@ -1,0 +1,9 @@
+<% if current_user_in_group?(:interpreters) %>
+  <nav>
+    <div class="heading"><%= t('.heading') %></div>
+
+    <ul>
+      <li><%= render 'admin/patterns/nav_item' %></li>
+    </ul>
+  </nav>
+<% end %>
