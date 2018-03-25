@@ -1,11 +1,45 @@
 #search-form {
-  > div {
+  margin: 2rem 0;
+
+  .heading {
+    font-size: 2rem;
+  }
+
+  .fields {
     align-items: center;
     display: flex;
     flex-wrap: wrap;
+    padding: .8rem;
   }
 
   input {
     width: auto;
+  }
+}
+
+#search-results {
+  dt:first-letter {
+    text-transform: uppercase;
+  }
+}
+
+.dreambook {
+  h1:first-letter {
+    text-transform: uppercase;
+  }
+}
+
+#donate-message {
+  box-shadow: $block-shadow;
+  margin: 2rem auto;
+  max-width: 64rem;
+  padding: 1.6rem;
+
+  h2 {
+    text-align: center;
+  }
+
+  iframe {
+    margin: 1rem auto 0;
   }
 }
