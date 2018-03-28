@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :word do
-    language nil
-    body "MyString"
+    language
+    sequence(:body) { |n| "Слово #{n}" }
   end
 end
