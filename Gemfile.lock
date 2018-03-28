@@ -1,13 +1,22 @@
 GIT
   remote: https://github.com/Biovision/biovision-base.git
-  revision: 11f1ab877b9851df10cee20cf0c67edf035bd50d
+  revision: 3b5bacb7b2a56d4f85684d8468f7efc1b06dfa8c
   specs:
-    biovision-base (0.13.180322)
+    biovision-base (0.14.180326)
       bcrypt (~> 3.1)
       carrierwave (~> 1.2)
       carrierwave-bombshelter (~> 0.2)
       kaminari (~> 1.1)
       mini_magick (~> 4.8)
+      rails (~> 5.1)
+      rails-i18n (~> 5.0)
+
+GIT
+  remote: https://github.com/Biovision/biovision-post.git
+  revision: fdaebbe6cef12058777e7cec5922e567f5211ee8
+  specs:
+    biovision-post (0.2.180325)
+      biovision-base
       rails (~> 5.1)
       rails-i18n (~> 5.0)
 
@@ -137,7 +146,7 @@ GEM
     pg (1.0.0)
     puma (3.11.3)
     rack (2.0.4)
-    rack-test (0.8.3)
+    rack-test (1.0.0)
       rack (>= 1.0, < 3)
     rails (5.1.5)
       actioncable (= 5.1.5)
@@ -232,6 +241,7 @@ PLATFORMS
 DEPENDENCIES
   autoprefixer-rails
   biovision-base!
+  biovision-post!
   byebug
   coffee-rails (~> 4.2)
   database_cleaner

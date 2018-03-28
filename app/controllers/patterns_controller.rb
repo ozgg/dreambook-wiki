@@ -10,7 +10,7 @@ class PatternsController < AdminController
   def create
     @entity = Pattern.new(creation_parameters)
     if @entity.save
-      form_processed_ok(admin_pattern_path(@entity.id))
+      form_processed_ok(admin_pattern_path(id: @entity.id))
     else
       form_processed_with_error(:new)
     end
@@ -24,7 +24,7 @@ class PatternsController < AdminController
   def update
     if @entity.update(entity_parameters)
       flash[:notice] = t('patterns.update.success')
-      form_processed_ok(admin_pattern_path(@entity.id))
+      form_processed_ok(admin_pattern_path(id: @entity.id))
     else
       form_processed_with_error(:edit)
     end

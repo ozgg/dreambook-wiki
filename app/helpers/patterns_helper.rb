@@ -1,7 +1,7 @@
 module PatternsHelper
   # @param [Pattern] entity
   def admin_pattern_link(entity)
-    link_to(entity.title, admin_pattern_path(entity.id))
+    link_to(entity.title, admin_pattern_path(id: entity.id))
   end
 
   # @param [Pattern] entity
