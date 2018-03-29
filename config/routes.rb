@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   resources :patterns, :words, only: [:update, :destroy]
 
-  scope '(:locale)', constraints: { locale: /[a-z]{2}/ } do
+  scope '(:locale)', constraints: { locale: /ru|en/ } do
     root 'index#index'
 
     resources :patterns, :words, only: [:new, :create, :edit]
