@@ -1,5 +1,6 @@
 class Admin::PatternsController < AdminController
   include LockableEntity
+  include ToggleableEntity
   
   before_action :set_entity, except: [:index]
 

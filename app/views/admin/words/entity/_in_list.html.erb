@@ -1,0 +1,17 @@
+<div class="data">
+  <div>
+    <%= admin_word_link(entity) %>
+  </div>
+  <div class="info">
+    <%= t('activerecord.attributes.word.language') %>:
+    <%= language_name(entity.language) %><br/>
+    <%= t(:pattern_count, count: entity.patterns_count) %>
+  </div>
+  <div class="secondary info">
+    <%= entity.patterns.map(&:title).join(', ') %>
+  </div>
+
+  <ul class="actions">
+    <li><%= edit_icon(edit_word_path(id: entity.id)) %></li>
+  </ul>
+</div>

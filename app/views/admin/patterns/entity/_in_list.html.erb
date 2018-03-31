@@ -14,6 +14,16 @@
     <%= t(:word_count, count: entity.words_count) %>
   </div>
 
+  <%=
+    render(
+        partial: 'shared/admin/toggleable',
+        locals:  {
+            entity: entity,
+            url:    toggle_admin_pattern_path(id: entity.id)
+        }
+    )
+  %>
+
   <ul class="actions">
     <li><%= edit_icon(edit_pattern_path(id: entity.id)) %></li>
   </ul>

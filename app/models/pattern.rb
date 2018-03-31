@@ -1,11 +1,14 @@
 class Pattern < ApplicationRecord
   include HasOwner
+  include Toggleable
 
   LINK_PATTERN = /\[\[(?<slug>[^\]]{1,50})\]\](?:\((?<text>[^)]{1,64})\))?/
 
   TITLE_LIMIT          = 255
   ESSENCE_LIMIT        = 255
   INTERPRETATION_LIMIT = 65535
+
+  toggleable :approved
 
   belongs_to :language
   belongs_to :user, optional: true

@@ -14,11 +14,16 @@ Rails.application.routes.draw do
     namespace :admin do
       resources :patterns, only: [:index, :show] do
         member do
+          post 'toggle', defaults: { format: :json }
           put 'lock', defaults: { format: :json }
           delete 'lock', action: :unlock, defaults: { format: :json }
         end
       end
       resources :words, only: [:index, :show]
     end
+  end
+
+  namespace :api do
+    post 'hooks/:token/dreambook' => 'hooks#dreambook', as: :dreambook_hook
   end
 end

@@ -1,0 +1,28 @@
+<%= form_with(model: entity, html: { id: "#{entity.class.to_s.underscore}-form" }) do |f| %>
+  <%= render partial: 'shared/list_of_errors', locals: { entity: entity } %>
+
+  <dl>
+    <% unless entity.id.nil? %>
+      <dt><%= t('activerecord.attributes.word.language') %></dt>
+      <dd><%= language_name(entity.language) %></dd>
+    <% end %>
+
+    <dt><%= f.label :body %></dt>
+    <dd>
+      <%=
+        f.text_field(
+            :body,
+            id:        :word_body,
+            size:      nil,
+            maxlength: Word::BODY_LIMIT,
+            required:  true
+        )
+      %>
+      <div class="guideline"><%= t('.guidelines.body') %></div>
+    </dd>
+  </dl>
+
+  <div class="buttons">
+    <%= f.button t(:save), type: :submit, class: 'button-save' %>
+  </div>
+<% end %>

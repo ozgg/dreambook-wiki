@@ -4,6 +4,11 @@ module PatternsHelper
     link_to(entity.title, admin_pattern_path(id: entity.id))
   end
 
+  # @param [Word] entity
+  def admin_word_link(entity)
+    link_to(entity.body, admin_word_path(id: entity.id))
+  end
+
   # @param [Pattern] entity
   # @param [String] text
   def pattern_link(entity, text = entity.title)
