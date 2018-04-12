@@ -48,9 +48,9 @@ namespace :patterns do
   task expand: :environment do
     patterns = Pattern.where(words_count: 0).order('id asc')
     puts "#{patterns.count} patterns without words"
-    patterns.each do |pattern|
+    patterns.each_with_index do |pattern, index|
       name = pattern.slug
-      print "\r#{pattern.id}: #{name}    "
+      print "\r#{index}) #{pattern.id}: #{name}    "
       word     = Word.with_body(name).first || Word.create!(body: name, language: pattern.language)
       word_ids = pattern.word_ids + [word.id]
 

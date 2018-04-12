@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180328202858) do
+ActiveRecord::Schema.define(version: 20180412001003) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -231,6 +231,7 @@ ActiveRecord::Schema.define(version: 20180328202858) do
     t.string "slug", null: false
     t.string "essence"
     t.text "interpretation", null: false
+    t.integer "popularity", default: 0, null: false
     t.index ["agent_id"], name: "index_patterns_on_agent_id"
     t.index ["approved", "language_id"], name: "index_patterns_on_approved_and_language_id"
     t.index ["language_id"], name: "index_patterns_on_language_id"
@@ -467,6 +468,7 @@ ActiveRecord::Schema.define(version: 20180328202858) do
     t.string "notice"
     t.string "search_string"
     t.json "profile_data", default: {}, null: false
+    t.boolean "consent", default: false, null: false
     t.index ["agent_id"], name: "index_users_on_agent_id"
     t.index ["email"], name: "index_users_on_email"
     t.index ["language_id"], name: "index_users_on_language_id"
