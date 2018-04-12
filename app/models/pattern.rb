@@ -13,8 +13,8 @@ class Pattern < ApplicationRecord
   belongs_to :language
   belongs_to :user, optional: true
   belongs_to :agent, optional: true
-  has_many :pattern_links, dependent: :delete_all
-  has_many :pattern_words, dependent: :delete_all
+  has_many :pattern_links, dependent: :destroy
+  has_many :pattern_words, dependent: :destroy
   has_many :words, through: :pattern_words
 
   before_validation :generate_slug

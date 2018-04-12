@@ -2,7 +2,7 @@ class Word < ApplicationRecord
   BODY_LIMIT = 50
 
   belongs_to :language
-  has_many :pattern_words
+  has_many :pattern_words, dependent: :destroy
   has_many :patterns, through: :pattern_words
 
   before_validation { self.body = body.downcase unless body.nil? }
@@ -12,6 +12,7 @@ class Word < ApplicationRecord
   validates_length_of :body, maximum: BODY_LIMIT
 
   scope :list_for_administration, -> { order('body asc') }
+  scope :with_body, ->(body) { where('lower(body) = lower(?)', body) }
 
   # @param [Integer] page
   def self.page_for_administration(page = 1)
