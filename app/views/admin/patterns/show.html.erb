@@ -1,0 +1,43 @@
+<% content_for :meta_title, t('.title', title: @entity.title) %>
+<% content_for :breadcrumbs do %>
+  <%= link_to(t('admin.patterns.nav_item.text'), admin_patterns_path) %>
+  <span><%= @entity.title %></span>
+<% end %>
+
+<article>
+  <h1><%= @entity.title %></h1>
+
+  <ul class="actions">
+    <li><%= back_icon(admin_patterns_path) %></li>
+    <li><%= edit_icon(edit_pattern_path(id: @entity.id)) %></li>
+  </ul>
+
+  <dl>
+    <% unless @entity.image.blank? %>
+      <dt><%= t('activerecord.attributes.pattern.image') %></dt>
+      <dd>
+        <figure role="group" class="preview">
+          <%= simple_image_medium(@entity) %>
+          <figcaption><%= @entity.image_alt_text %></figcaption>
+        </figure>
+      </dd>
+    <% end %>
+
+    <dt><%= t('activerecord.attributes.pattern.slug') %></dt>
+    <dd><%= @entity.slug %></dd>
+
+    <dt><%= t('activerecord.attributes.pattern.summary') %></dt>
+    <dd><%= @entity.summary %></dd>
+
+    <% unless @entity.description.blank? %>
+      <dt><%= t('activerecord.attributes.pattern.description') %></dt>
+      <dd>
+        <div class="text">
+          <%= simple_format @entity.description %>
+        </div>
+      </dd>
+    <% end %>
+
+    <%= render partial: 'shared/entity/timestamps', locals: { entity: @entity } %>
+  </dl>
+</article>

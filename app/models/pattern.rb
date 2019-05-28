@@ -7,6 +7,7 @@
 #   data [jsonb]
 #   description [text], optional
 #   image [SimpleImageUploader], optional
+#   image_alt_text [string], optional
 #   language_id [Language]
 #   slug [string]
 #   summary [string]
@@ -16,9 +17,10 @@
 class Pattern < ApplicationRecord
   include Checkable
 
-  TITLE_LIMIT = 100
-  SUMMARY_LIMIT = 255
   DESCRIPTION_LIMIT = 65_535
+  META_LIMIT = 255
+  SUMMARY_LIMIT = 255
+  TITLE_LIMIT = 100
 
   mount_uploader :image, SimpleImageUploader
 
@@ -38,6 +40,6 @@ class Pattern < ApplicationRecord
   scope :list_for_administration, -> { ordered_by_title }
 
   def self.entity_parameters
-    %i[description image language_id summary title]
+    %i[description image image_alt_text language_id summary title]
   end
 end

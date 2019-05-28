@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_28_202538) do
+ActiveRecord::Schema.define(version: 2019_05_28_203000) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -232,6 +232,31 @@ ActiveRecord::Schema.define(version: 2019_05_28_202538) do
     t.index ["biovision_component_id"], name: "index_metrics_on_biovision_component_id"
   end
 
+  create_table "pattern_links", force: :cascade do |t|
+    t.bigint "pattern_id", null: false
+    t.integer "other_pattern_id", null: false
+    t.index ["pattern_id", "other_pattern_id"], name: "index_pattern_links_on_pattern_id_and_other_pattern_id", unique: true
+    t.index ["pattern_id"], name: "index_pattern_links_on_pattern_id"
+  end
+
+  create_table "patterns", comment: "Dream pattern", force: :cascade do |t|
+    t.bigint "language_id", null: false
+    t.integer "words_count", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "slug", null: false
+    t.string "image"
+    t.string "image_alt_text"
+    t.string "title", null: false
+    t.string "summary", null: false
+    t.text "description"
+    t.jsonb "data", default: {}, null: false
+    t.index ["data"], name: "index_patterns_on_data", using: :gin
+    t.index ["language_id"], name: "index_patterns_on_language_id"
+    t.index ["slug", "language_id"], name: "index_patterns_on_slug_and_language_id", unique: true
+    t.index ["title"], name: "index_patterns_on_title"
+  end
+
   create_table "privilege_group_privileges", comment: "Privilege in group", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -376,6 +401,9 @@ ActiveRecord::Schema.define(version: 2019_05_28_202538) do
   add_foreign_key "media_folders", "users", on_update: :cascade, on_delete: :nullify
   add_foreign_key "metric_values", "metrics", on_update: :cascade, on_delete: :cascade
   add_foreign_key "metrics", "biovision_components", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "pattern_links", "patterns", column: "other_pattern_id", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "pattern_links", "patterns", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "patterns", "languages", on_update: :cascade, on_delete: :cascade
   add_foreign_key "privilege_group_privileges", "privilege_groups", on_update: :cascade, on_delete: :cascade
   add_foreign_key "privilege_group_privileges", "privileges", on_update: :cascade, on_delete: :cascade
   add_foreign_key "privileges", "privileges", column: "parent_id", on_update: :cascade, on_delete: :cascade

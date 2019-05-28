@@ -11,7 +11,7 @@ namespace :patterns do
           title = data['title']
           print "\r#{id}: #{title}    "
 
-          next unless data.key?['essence']
+          next unless data.key?('essence')
 
           entity = Pattern.find_or_initialize_by(title: data['title'])
           entity.title = data['title']

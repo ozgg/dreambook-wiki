@@ -1,0 +1,82 @@
+ru:
+  word_count:
+    zero: "Слов нет"
+    one: "%{count} слово"
+    few: "%{count} слова"
+    many: "%{count} слов"
+    other: "%{count} слов"
+  activerecord:
+    models:
+      pattern: "Образ"
+      pattern_link: "Связь между образами"
+      word: "Слово"
+    attributes:
+      pattern:
+        description: "Описание"
+        image: "Картинка"
+        image_alt_text: "Альтернативный текст для изображения"
+        language: "Язык"
+        language_id: "Язык"
+        slug: "Идентификатор"
+        summary: "Суть"
+        title: "Название"
+        words_count: "Количество слов"
+      word:
+        body: "Текст"
+        language: "Язык"
+  admin:
+    patterns:
+      nav_item:
+        description: "Управление образами снов"
+        text: "Образы снов"
+      index:
+        heading: "Образы"
+        title: "Образы снов, страница %{page}"
+      show:
+        title: "Образ сна «%{title}»"
+    words:
+      nav_item:
+        description: "Управление словами для связи с образами"
+        text: "Слова"
+      index:
+        title: "Слова, страница %{page}"
+        heading: "Слова"
+      show:
+        title: "Слово «%{body}»"
+    index:
+      dashboard:
+        dreambook:
+          heading: "Сонник"
+  patterns:
+    new:
+      heading: "Новый образ"
+      nav_text: "Добавить"
+      title: "Добавление образа"
+    edit:
+      heading: "Редактирование образа"
+      nav_text: "Редактировать"
+      title: "Редактирование образа"
+    destroy:
+      success: "Образ сна удалён"
+    update:
+      success: "Образ сна изменён"
+    form:
+      guidelines:
+        description: "Максимум 64кб текста."
+        image: "Картинка размером до 3000×3000, формат — SVG, JPG или PNG."
+        summary: "Максимум 255 символов."
+        title: "Максимум 100 символов."
+  words:
+    new:
+      heading: "Новое слово"
+      title: "Добавление слова"
+    edit:
+      heading: "Редактирование слова"
+      title: "Редактирование слова"
+    destroy:
+      success: "Слово удалено"
+    update:
+      success: "Слово обновлено"
+    form:
+      guidelines:
+        body: "Максимум 100 символов."

@@ -1,0 +1,120 @@
+<% model_name = entity.class.to_s.underscore %>
+<%=
+  form_with(
+      model: entity,
+      html: {
+          id: "#{model_name}-form",
+          data: { check_url: check_patterns_path }
+      }
+  ) do |f|
+%>
+  <%= render partial: 'shared/list_of_errors', locals: { entity: entity } %>
+
+  <dl>
+    <dt><%= f.label :title %></dt>
+    <dd>
+      <%=
+        f.text_field(
+            :title,
+            id: "#{model_name}_title",
+            size: nil,
+            maxlength: Pattern::TITLE_LIMIT,
+            required: true,
+            data: {
+                check: :title
+            }
+        )
+      %>
+      <div class="check-result-error" data-field="title"></div>
+      <div class="guideline"><%= t('.guidelines.title') %></div>
+    </dd>
+
+    <dt><%= f.label :summary %></dt>
+    <dd>
+      <%=
+        f.text_field(
+            :summary,
+            id: "#{model_name}_summary",
+            size: nil,
+            maxlength: Pattern::SUMMARY_LIMIT,
+            required: true,
+            data: {
+                check: :summary
+            }
+        )
+      %>
+      <div class="check-result-error" data-field="summary"></div>
+      <div class="guideline"><%= t('.guidelines.summary') %></div>
+    </dd>
+
+    <dt><%= f.label :description %></dt>
+    <dd>
+      <%=
+        f.text_area(
+            :description,
+            id: "#{model_name}_description",
+            cols: 80,
+            rows: 3,
+            class: 'auto-expand',
+            data: {
+                check: :description,
+                min_rows: 3,
+                max_rows: 40
+            }
+        )
+      %>
+      <div class="check-result-error" data-field="description"></div>
+      <div class="guideline"><%= t('.guidelines.description') %></div>
+    </dd>
+
+    <dt><%= f.label :image %></dt>
+    <dd>
+      <figure class="preview" role="group" id="<%= model_name %>-image">
+        <% if entity.image.blank? %>
+          <%= f.label :image, image_tag('biovision/base/placeholders/16x9.svg', alt: '') %>
+        <% else %>
+          <%= f.label :image, image_tag(entity.image.medium_url, alt: '') %>
+        <% end %>
+        <figcaption>
+          <%=
+            f.file_field(
+                :image,
+                id: "#{model_name}_image",
+                accept: 'image/jpeg,image/png,image/svg+xml',
+                data: { image: "#{model_name}-image" }
+            )
+          %>
+        </figcaption>
+      </figure>
+      <div class="guideline"><%= t('.guidelines.image') %></div>
+    </dd>
+
+    <dt><%= f.label :image_alt_text %></dt>
+    <dd>
+      <%=
+        f.text_field(
+            :image_alt_text,
+            id: "#{model_name}_image_alt_text",
+            size: nil,
+            maxlength: Pattern::META_LIMIT,
+            data: {
+                check: :image_alt_text
+            }
+        )
+      %>
+      <div class="check-result-error" data-field="image_alt_text"></div>
+      <div class="guideline"><%= t('.guidelines.image_alt_text') %></div>
+    </dd>
+
+    <%= render partial: 'shared/forms/entity_flags', locals: { f: f } %>
+  </dl>
+
+  <%= render 'shared/forms/state_container' %>
+
+  <div class="buttons">
+    <%= hidden_field_tag :entity_id, entity.id %>
+    <%= f.button t(:save), type: :submit, class: 'button-save' %>
+  </div>
+<% end %>
+
+<%= render 'shared/forms/toggle_wysiwyg' %>

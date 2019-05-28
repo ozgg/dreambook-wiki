@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   concern :check do
     post :check, on: :collection, defaults: { format: :json }
@@ -22,7 +24,15 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :patterns, only: %i[update destroy]
+
   scope '(:locale)', constraints: { locale: /ru|en/ } do
     root 'index#index'
+
+    resources :patterns, only: %i[new create edit], concerns: :check
+
+    namespace :admin do
+      resources :patterns, only: %i[index show]
+    end
   end
 end
