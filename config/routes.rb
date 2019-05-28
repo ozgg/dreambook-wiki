@@ -1,29 +1,28 @@
 Rails.application.routes.draw do
-  resources :patterns, :words, only: [:update, :destroy]
+  concern :check do
+    post :check, on: :collection, defaults: { format: :json }
+  end
 
-  scope '(:locale)', constraints: { locale: /ru|en/ } do
-    root 'index#index'
+  concern :toggle do
+    post :toggle, on: :member, defaults: { format: :json }
+  end
 
-    resources :patterns, :words, only: [:new, :create, :edit]
+  concern :priority do
+    post :priority, on: :member, defaults: { format: :json }
+  end
 
-    controller :dreambook do
-      get 'w/(:slug)' => :show, as: :dreambook_pattern, constraints: { slug: /[^\/]+/ }
-      get 'search' => :search
-    end
+  concern :removable_image do
+    delete :image, action: :destroy_image, on: :member, defaults: { format: :json }
+  end
 
-    namespace :admin do
-      resources :patterns, only: [:index, :show] do
-        member do
-          post 'toggle', defaults: { format: :json }
-          put 'lock', defaults: { format: :json }
-          delete 'lock', action: :unlock, defaults: { format: :json }
-        end
-      end
-      resources :words, only: [:index, :show]
+  concern :lock do
+    member do
+      put :lock, defaults: { format: :json }
+      delete :lock, action: :unlock, defaults: { format: :json }
     end
   end
 
-  namespace :api do
-    post 'hooks/:token/dreambook' => 'hooks#dreambook', as: :dreambook_hook
+  scope '(:locale)', constraints: { locale: /ru|en/ } do
+    root 'index#index'
   end
 end

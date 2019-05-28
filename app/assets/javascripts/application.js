@@ -11,6 +11,8 @@
 // about supported directives.
 //
 //= require rails-ujs
-//= require biovision/base/biovision.js
-//= require biovision/base/biovision-sliders.js
+//= require activestorage
+//= require biovision/base/polyfills
+//= require biovision/base/biovision
+//= require biovision/base/components/carousel
 //= require_tree .
