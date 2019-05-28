@@ -11,6 +11,11 @@
   <%= render partial: 'shared/list_of_errors', locals: { entity: entity } %>
 
   <dl>
+    <dt><%= f.label :language_id %></dt>
+    <dd>
+      <%= f.select :language_id, languages_for_select(false) %>
+    </dd>
+
     <dt><%= f.label :title %></dt>
     <dd>
       <%=
@@ -105,8 +110,6 @@
       <div class="check-result-error" data-field="image_alt_text"></div>
       <div class="guideline"><%= t('.guidelines.image_alt_text') %></div>
     </dd>
-
-    <%= render partial: 'shared/forms/entity_flags', locals: { f: f } %>
   </dl>
 
   <%= render 'shared/forms/state_container' %>
