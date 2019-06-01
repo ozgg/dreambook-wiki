@@ -7,5 +7,5 @@
 
 <article id="homepage">
   <%= render partial: 'index/index/editable', locals: { entity: @editable_page } %>
-  <%= render 'index/index/default_dashboard' %>
+  <%= render partial: 'wiki/letters', locals: { current_letter: '' } %>
 </article>

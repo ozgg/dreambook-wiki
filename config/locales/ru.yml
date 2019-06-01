@@ -8,3 +8,6 @@ ru:
       description: "Wiki-сонник с интерпретацией и толкованием сюжетов снов"
       heading: "Главная страница"
       title: "Wiki-сонник"
+  layouts:
+    application:
+      title: "Wiki-сонник"

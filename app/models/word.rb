@@ -1,0 +1,37 @@
+# frozen_string_literal: true
+
+# Word
+#
+# Attributes:
+#   body [String]
+#   created_at [DateTime]
+#   language_id [Language]
+#   patterns_count [Integer]
+#   processed [Boolean]
+#   updated_at [DateTime]
+#   weight [Integer]
+class Word < ApplicationRecord
+  include Checkable
+  include Toggleable
+
+  BODY_LIMIT = 150
+
+  toggleable :processed
+
+  belongs_to :language
+  has_many :pattern_words, dependent: :destroy
+  has_many :patterns, through: :pattern_words
+
+  before_validation { self.body = body.to_s.downcase }
+
+  validates_uniqueness_of :body, scope: :language_id
+  validates_presence_of :body
+  validates_length_of :body, maximum: BODY_LIMIT
+
+  scope :ordered_by_weight, -> { order('weight desc') }
+  scope :list_for_administration, -> { ordered_by_weight }
+
+  def self.entity_parameters
+    %i[body language_id processed]
+  end
+end

@@ -1,9 +1,9 @@
 // Здесь можно переобъявлять то, что описано в biovision/base/default,
 // а также добавлять новые общие стили
-@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,700&subset=cyrillic');
+@import url('https://fonts.googleapis.com/css?family=Cormorant+Garamond:400,500|Roboto+Condensed:300,400&display=swap&subset=cyrillic');
 
-$font-family-main: "Roboto", sans-serif;
-$font-family-heading: $font-family-main;
+$font-family-main: "Roboto Condensed", sans-serif;
+$font-family-heading: "Cormorant Garamond", serif;
 
 $font-size-xxxl: 5.6rem;
 $font-size-xxl: 4.5rem;

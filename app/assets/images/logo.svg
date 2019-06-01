@@ -1,0 +1,21 @@
+<svg version="1.1" viewBox="0 0 160 160" width="160px" height="160px" xmlns="http://www.w3.org/2000/svg">
+  <title>dreambook.wiki logo</title>
+  <g>
+    <g fill="#777">
+      <polygon points="80,122 90,156 70,156"/>
+      <polygon points="46,112 52,148 40,148"/>
+      <polygon points="114,112 120,148 108,148"/>
+      <polygon points="18,64 22,132 14,132"/>
+      <polygon points="142,64 146,132 138,132"/>
+    </g>
+    <g fill="none" stroke-width="1.5" stroke="#999" stroke-linejoin="round">
+      <polyline points="80,122 68,102 46,112 45,86 22,64 45,42 46,16 68,26 80,6 92,26 114,16 113,42 138,64 115,86 114,112 92,102 80,122"/>
+      <polyline points="68,102 64,80 45,86 56,64 45,42 64,48 68,26 80,40 92,26 96,48 113,42 104,64 115,86 96,80 92,102 80,88 68,102"/>
+      <polyline points="64,80 56,64 64,48 80,40 96,48 104,64 96,80 80,88 64,80"/>
+    </g>
+    <g>
+      <circle cx="80" cy="64" r="60" fill="none" stroke-width="5" stroke="#333"/>
+      <circle cx="80" cy="64" r="8" fill="#f32"/>
+    </g>
+  </g>
+</svg>

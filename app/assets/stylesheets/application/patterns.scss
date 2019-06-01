@@ -1,0 +1,39 @@
+nav.letters {
+  margin: var(--spacer-m) auto;
+  max-width: $content-width;
+
+  div {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    text-transform: uppercase;
+  }
+
+  a,
+  span {
+    display: block;
+    padding: var(--spacer-xxs);
+  }
+}
+
+.patterns-list {
+  div {
+    border-bottom: $border-secondary;
+    padding: var(--spacer-xs);
+  }
+
+  dt {
+    font-size: var(--font-size-increased);
+    font-weight: 500;
+
+    &::first-letter {
+      text-transform: uppercase;
+    }
+  }
+
+  dd {
+    margin: 0;
+    padding: var(--spacer-xs);
+  }
+}

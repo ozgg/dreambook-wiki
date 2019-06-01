@@ -81,3 +81,7 @@ ru:
     form:
       guidelines:
         body: "Максимум 100 символов."
+  wiki:
+    index:
+      title: "Содержание"
+      nav_text: "Сонник"

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_28_203000) do
+ActiveRecord::Schema.define(version: 2019_05_29_204000) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -239,6 +239,14 @@ ActiveRecord::Schema.define(version: 2019_05_28_203000) do
     t.index ["pattern_id"], name: "index_pattern_links_on_pattern_id"
   end
 
+  create_table "pattern_words", comment: "Word for pattern", force: :cascade do |t|
+    t.bigint "pattern_id", null: false
+    t.bigint "word_id", null: false
+    t.index ["pattern_id", "word_id"], name: "index_pattern_words_on_pattern_id_and_word_id", unique: true
+    t.index ["pattern_id"], name: "index_pattern_words_on_pattern_id"
+    t.index ["word_id"], name: "index_pattern_words_on_word_id"
+  end
+
   create_table "patterns", comment: "Dream pattern", force: :cascade do |t|
     t.bigint "language_id", null: false
     t.integer "words_count", default: 0, null: false
@@ -380,6 +388,18 @@ ActiveRecord::Schema.define(version: 2019_05_28_203000) do
     t.index ["slug"], name: "index_users_on_slug", unique: true
   end
 
+  create_table "words", comment: "Word", force: :cascade do |t|
+    t.bigint "language_id", null: false
+    t.boolean "processed", default: false, null: false
+    t.integer "weight", default: 0, null: false
+    t.integer "patterns_count", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "body", null: false
+    t.index ["body", "language_id"], name: "index_words_on_body_and_language_id", unique: true
+    t.index ["language_id"], name: "index_words_on_language_id"
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "agents", "browsers", on_update: :cascade, on_delete: :cascade
   add_foreign_key "codes", "agents", on_update: :cascade, on_delete: :nullify
@@ -403,6 +423,8 @@ ActiveRecord::Schema.define(version: 2019_05_28_203000) do
   add_foreign_key "metrics", "biovision_components", on_update: :cascade, on_delete: :cascade
   add_foreign_key "pattern_links", "patterns", column: "other_pattern_id", on_update: :cascade, on_delete: :cascade
   add_foreign_key "pattern_links", "patterns", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "pattern_words", "patterns", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "pattern_words", "words", on_update: :cascade, on_delete: :cascade
   add_foreign_key "patterns", "languages", on_update: :cascade, on_delete: :cascade
   add_foreign_key "privilege_group_privileges", "privilege_groups", on_update: :cascade, on_delete: :cascade
   add_foreign_key "privilege_group_privileges", "privileges", on_update: :cascade, on_delete: :cascade
@@ -417,4 +439,5 @@ ActiveRecord::Schema.define(version: 2019_05_28_203000) do
   add_foreign_key "users", "languages", on_update: :cascade, on_delete: :nullify
   add_foreign_key "users", "users", column: "inviter_id", on_update: :cascade, on_delete: :nullify
   add_foreign_key "users", "users", column: "native_id", on_update: :cascade, on_delete: :nullify
+  add_foreign_key "words", "languages", on_update: :cascade, on_delete: :cascade
 end

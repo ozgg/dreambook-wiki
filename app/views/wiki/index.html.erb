@@ -1,0 +1,25 @@
+<%
+  if @letter.blank?
+    content_for :meta_title, t('.title')
+  else
+    content_for :meta_title, @letter
+  end
+%>
+<% content_for :breadcrumbs do %>
+  <span><%= t('.nav_text') %></span>
+<% end %>
+
+<%= render partial: 'wiki/letters', locals: { current_letter: @letter } %>
+
+<% if @collection.any? %>
+  <section>
+    <dl class="patterns-list">
+      <% @collection.each do |entity| %>
+        <div>
+          <dt><%= entity.title %></dt>
+          <dd><%= entity.summary %></dd>
+        </div>
+      <% end %>
+    </dl>
+  </section>
+<% end %>

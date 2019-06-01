@@ -1,0 +1,19 @@
+<% unless entity.nil? %>
+  <section class="index-intro">
+    <% if current_user_has_privilege?(:content_manager) %>
+      <ul class="actions">
+        <li><%= gear_icon(admin_editable_page_path(id: entity.id)) %></li>
+        <li><%= edit_icon(edit_editable_page_path(id: entity.id)) %></li>
+      </ul>
+    <% end %>
+    <% unless entity.image.blank? %>
+      <figure>
+        <%= simple_image_medium(entity) %>
+      </figure>
+    <% end %>
+    <h1><%= entity.title %></h1>
+    <div class="text">
+      <%= raw entity.text %>
+    </div>
+  </section>
+<% end %>

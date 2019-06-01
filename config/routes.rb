@@ -29,6 +29,9 @@ Rails.application.routes.draw do
   scope '(:locale)', constraints: { locale: /ru|en/ } do
     root 'index#index'
 
+    get 'w' => 'wiki#index', as: :wiki
+    get 'w/:slug' => 'wiki#show', as: :wiki_show, constraints: { slug: /.+/ }
+
     resources :patterns, only: %i[new create edit], concerns: :check
 
     namespace :admin do
