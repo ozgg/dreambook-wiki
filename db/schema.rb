@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_29_204000) do
+ActiveRecord::Schema.define(version: 2019_06_05_212121) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -265,6 +265,18 @@ ActiveRecord::Schema.define(version: 2019_05_29_204000) do
     t.index ["title"], name: "index_patterns_on_title"
   end
 
+  create_table "pending_patterns", comment: "Pending pattern for interpretation", force: :cascade do |t|
+    t.bigint "language_id", null: false
+    t.bigint "pattern_id"
+    t.boolean "processed", default: false, null: false
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["language_id"], name: "index_pending_patterns_on_language_id"
+    t.index ["name"], name: "index_pending_patterns_on_name"
+    t.index ["pattern_id"], name: "index_pending_patterns_on_pattern_id"
+  end
+
   create_table "privilege_group_privileges", comment: "Privilege in group", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -426,6 +438,8 @@ ActiveRecord::Schema.define(version: 2019_05_29_204000) do
   add_foreign_key "pattern_words", "patterns", on_update: :cascade, on_delete: :cascade
   add_foreign_key "pattern_words", "words", on_update: :cascade, on_delete: :cascade
   add_foreign_key "patterns", "languages", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "pending_patterns", "languages", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "pending_patterns", "patterns", on_update: :cascade, on_delete: :nullify
   add_foreign_key "privilege_group_privileges", "privilege_groups", on_update: :cascade, on_delete: :cascade
   add_foreign_key "privilege_group_privileges", "privileges", on_update: :cascade, on_delete: :cascade
   add_foreign_key "privileges", "privileges", column: "parent_id", on_update: :cascade, on_delete: :cascade

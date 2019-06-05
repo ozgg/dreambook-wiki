@@ -29,12 +29,14 @@ class Pattern < ApplicationRecord
   before_validation { self.slug = title.to_s.downcase }
 
   validates_uniqueness_of :slug, scope: :language_id
+  validates_uniqueness_of :title, scope: :language_id, case_sensitive: false
   validates_presence_of :title, :summary
   validates_length_of :title, maximum: TITLE_LIMIT
   validates_length_of :summary, maximum: SUMMARY_LIMIT
   validates_length_of :description, maximum: DESCRIPTION_LIMIT
 
   scope :letter, ->(v) { where('title ilike ?', "#{v[0]}%") unless v.blank? }
+  scope :with_title, ->(v) { where('lower(title) = lower(?)', v) unless v.blank? }
   scope :ordered_by_title, -> { order('title asc') }
   scope :list_for_visitors, -> { ordered_by_title }
   scope :list_for_administration, -> { ordered_by_title }

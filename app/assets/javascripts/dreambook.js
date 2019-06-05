@@ -1,0 +1,72 @@
+"use strict";
+
+const Dreambook = {
+    initialized: false,
+    components: {},
+    autoInitComponents: true
+};
+
+Dreambook.components.pendingPatternEnqueue = {
+    initialized: false,
+    selector: ".js-pattern-queue-container",
+    container: undefined,
+    textarea: undefined,
+    button: undefined,
+    init: function () {
+        this.container = document.querySelector(this.selector);
+        if (this.container) {
+            this.initialized = true;
+            this.textarea = this.container.querySelector("textarea");
+            this.button = this.container.querySelector("button");
+            const component = this;
+            this.button.addEventListener("click", component.handler);
+        }
+    },
+    handler: function () {
+        const component = Dreambook.components.pendingPatternEnqueue;
+        const url = component.container.getAttribute("data-url");
+        const request = Biovision.jsonAjaxRequest("post", url, function () {
+            component.textarea.value = "";
+            component.button.disabled = false;
+        });
+        component.button.disabled = true;
+        request.send(JSON.stringify({list: component.textarea.value}));
+    }
+};
+
+Dreambook.components.pendingPatternSummary = {
+    initialized: false,
+    selector: ".js-pending-pattern-summary",
+    items: [],
+    init: function () {
+        document.querySelectorAll(this.selector).forEach(this.apply);
+        this.initialized = true;
+    },
+    apply: (element) => {
+        const component = Dreambook.components.pendingPatternSummary;
+        component.items.push(element);
+        element.addEventListener("change", component.handler);
+    },
+    handler: function (event) {
+        const input = event.target;
+        if (input.value.length > 0) {
+            const component = Dreambook.components.pendingPatternSummary;
+            const url = input.getAttribute("data-url");
+            const request = Biovision.jsonAjaxRequest("post", url, function() {
+                const response = JSON.parse(this.responseText);
+                if (response.hasOwnProperty("meta")) {
+                    if (response.meta["processed"]) {
+                        const container = input.closest(".info");
+                        if (container) {
+                            container.innerHTML = input.value;
+                        }
+                    }
+                }
+            });
+            input.readonly = true;
+            request.send(JSON.stringify({summary: input.value}));
+        }
+    }
+};
+
+Biovision.components.dreambook = Dreambook;

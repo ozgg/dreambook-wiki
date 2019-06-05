@@ -36,6 +36,10 @@ Rails.application.routes.draw do
 
     namespace :admin do
       resources :patterns, only: %i[index show]
+      resources :pending_patterns, only: :index do
+        post 'enqueue', on: :collection
+        post 'summary', on: :member
+      end
     end
   end
 end

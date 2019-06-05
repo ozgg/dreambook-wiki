@@ -9,6 +9,7 @@ ru:
     models:
       pattern: "Образ"
       pattern_link: "Связь между образами"
+      pending_pattern: "Образ в очереди"
       word: "Слово"
     attributes:
       pattern:
@@ -21,6 +22,11 @@ ru:
         summary: "Суть"
         title: "Название"
         words_count: "Количество слов"
+      pending_pattern:
+        language: "Язык"
+        name: "Название"
+        pattern: "Образ"
+        processed: "Обработан"
       word:
         body: "Текст"
         language: "Язык"
@@ -34,6 +40,14 @@ ru:
         title: "Образы снов, страница %{page}"
       show:
         title: "Образ сна «%{title}»"
+    pending_patterns:
+      nav_item:
+        description: "Управление очередью образов снов"
+        text: "Очередь образов снов"
+      index:
+        heading: "Очередь образов снов"
+        title: "Очередь образов снов, страница %{page}"
+        enqueue: "Добавить образы"
     words:
       nav_item:
         description: "Управление словами для связи с образами"
