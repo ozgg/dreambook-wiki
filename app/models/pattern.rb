@@ -25,6 +25,8 @@ class Pattern < ApplicationRecord
   mount_uploader :image, SimpleImageUploader
 
   belongs_to :language
+  has_many :pattern_words, dependent: :destroy
+  has_many :words, through: :pattern_words
 
   before_validation { self.slug = title.to_s.downcase }
 
@@ -43,5 +45,23 @@ class Pattern < ApplicationRecord
 
   def self.entity_parameters
     %i[description image image_alt_text language_id summary title]
+  end
+
+  # @param [Word] entity
+  def add_word(entity)
+    pattern_words.create(word: entity)
+  end
+
+  def words_string
+    words.pluck(:body).join(', ')
+  end
+
+  # @param [String] value
+  def words_string=(value)
+    new_ids = []
+    value.split(',').reject(&:blank?).map(&:strip).each do |body|
+      new_ids << Word.find_or_create_by(body: body, language: language)&.id
+    end
+    self.word_ids = new_ids.uniq
   end
 end

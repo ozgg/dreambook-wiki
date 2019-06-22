@@ -4,17 +4,21 @@
     <% if entity.processed? %>
       <%= entity.pattern&.summary %>
     <% else %>
-      <%=
-        text_field_tag(
-            :summary,
-            '',
-            id: nil,
-            class: 'js-pending-pattern-summary',
-            data: {
-                url: summary_admin_pending_pattern_path(id: entity.id)
-            }
-        )
-      %>
+      <div class="link-state-container">
+        <%=
+          text_field_tag(
+              :summary,
+              '',
+              id: nil,
+              class: 'js-pending-pattern-summary',
+              data: {
+                  url: summary_admin_pending_pattern_path(id: entity.id)
+              },
+              autocomplete: 'off'
+          )
+        %>
+        <span class="state"></span>
+      </div>
     <% end %>
   </div>
 

@@ -50,9 +50,9 @@ Dreambook.components.pendingPatternSummary = {
     handler: function (event) {
         const input = event.target;
         if (input.value.length > 0) {
-            const component = Dreambook.components.pendingPatternSummary;
+            const state = input.parentNode.querySelector(".state");
             const url = input.getAttribute("data-url");
-            const request = Biovision.jsonAjaxRequest("post", url, function() {
+            const request = Biovision.jsonAjaxRequest("post", url, function () {
                 const response = JSON.parse(this.responseText);
                 if (response.hasOwnProperty("meta")) {
                     if (response.meta["processed"]) {
@@ -62,9 +62,58 @@ Dreambook.components.pendingPatternSummary = {
                         }
                     }
                 }
+            }, function () {
+                state.classList.remove("processing");
+                state.classList.add("failed");
             });
             input.readonly = true;
-            request.send(JSON.stringify({summary: input.value}));
+
+            if (!state.classList.contains("processing")) {
+                request.send(JSON.stringify({summary: input.value}));
+            }
+        }
+    }
+};
+
+/**
+ * Quickly add links between words and patterns
+ *
+ * @type {Object}
+ */
+Dreambook.components.wordPatternString = {
+    initialized: false,
+    selector: ".js-word-pattern-string",
+    elements: [],
+    init: function () {
+        document.querySelectorAll(this.selector).forEach(this.apply);
+        this.initialized = true;
+    },
+    apply: (element) => {
+        const component = Dreambook.components.wordPatternString;
+        component.elements.push(element);
+        element.addEventListener("change", component.handler);
+        if (!element.hasAttribute("autocomplete")) {
+            element.setAttribute("autocomplete", "off");
+        }
+    },
+    handler: function (event) {
+        const input = event.target;
+        const url = input.getAttribute("data-url");
+        const state = input.parentNode.querySelector(".state");
+        const request = Biovision.jsonAjaxRequest("put", url, function () {
+            state.classList.remove("processing");
+            state.classList.remove("failed");
+            state.classList.add("processed");
+        }, function () {
+            state.classList.remove("processing");
+            state.classList.add("failed");
+        });
+
+        if (!state.classList.contains("processing")) {
+            const data = {"string": input.value};
+
+            state.classList.add("processing");
+            request.send(JSON.stringify(data));
         }
     }
 };

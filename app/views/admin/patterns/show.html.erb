@@ -39,6 +39,37 @@
       </dd>
     <% end %>
 
+    <% words = @entity.words.list_for_administration %>
+    <% if words.load.any? %>
+      <dt><%= t('.words') %></dt>
+      <dd>
+        <ul>
+          <% words.each do |word| %>
+            <li><%= admin_word_link(word) %></li>
+          <% end %>
+        </ul>
+      </dd>
+    <% end %>
+
+    <dt><%= t('.words_string') %></dt>
+    <dd>
+      <div class="link-state-container">
+        <%=
+          text_field_tag(
+              :string,
+              @entity.words_string,
+              id: nil,
+              data: {
+                  url: words_string_admin_pattern_path(id: @entity.id)
+              },
+              class: 'js-word-pattern-string',
+              autocomplete: 'off'
+          )
+        %>
+        <span class="state"></span>
+      </div>
+    </dd>
+
     <%= render partial: 'shared/entity/timestamps', locals: { entity: @entity } %>
   </dl>
 </article>

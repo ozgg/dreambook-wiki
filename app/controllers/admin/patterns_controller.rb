@@ -13,6 +13,15 @@ class Admin::PatternsController < AdminController
   def show
   end
 
+  # put /admin/patterns/:id/words_string
+  def words_string
+    new_string = param_from_request(:string)
+
+    @entity.words_string = new_string
+
+    head :no_content
+  end
+
   private
 
   def restrict_access

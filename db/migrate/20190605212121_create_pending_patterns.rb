@@ -19,6 +19,9 @@ class CreatePendingPatterns < ActiveRecord::Migration[5.2]
       t.boolean :processed, default: false, null: false
       t.string :name, null: false, index: true
       t.timestamps
+      t.jsonb :data, default: {}, null: false
     end
+
+    add_index :pending_patterns, :data, using: :gin
   end
 end

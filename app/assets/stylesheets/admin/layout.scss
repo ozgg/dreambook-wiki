@@ -4,6 +4,36 @@
   }
 }
 
-.js-pending-pattern-summary {
-  width: 100%;
+.link-state-container {
+  align-items: center;
+  display: flex;
+
+  input {
+    flex: 1;
+    width: auto;
+  }
+
+  .state {
+    background-color: rgba(220, 220, 220, .5);
+    border-radius: 50%;
+    display: inline-block;
+    flex: none;
+    height: var(--spacer-s);
+    margin: 0 var(--spacer-xs);
+    transition: .125s;
+    width: var(--spacer-s);
+
+    &.processing {
+      background-color: rgb(255, 220, 0);
+    }
+
+    &.failed {
+      background-color: rgb(220, 16, 0);
+    }
+
+    &.processed {
+      background-color: rgb(16, 220, 0);
+    }
+  }
+
 }

@@ -1,0 +1,34 @@
+<div class="data">
+  <div><%= admin_word_link(entity) %></div>
+  <div class="info">
+    <div class="link-state-container">
+      <%=
+        text_field_tag(
+            :string,
+            entity.patterns_string,
+            id: nil,
+            data: {
+                url: patterns_string_admin_word_path(id: entity.id)
+            },
+            class: 'js-word-pattern-string',
+            autocomplete: 'off'
+        )
+      %>
+      <span class="state"></span>
+    </div>
+  </div>
+
+  <%=
+    render(
+        partial: 'shared/admin/toggleable',
+        locals:  {
+            entity: entity,
+            url:    toggle_admin_word_path(id: entity.id)
+        }
+    )
+  %>
+
+  <ul class="actions">
+    <li><%= edit_icon(edit_word_path(id: entity.id)) %></li>
+  </ul>
+</div>

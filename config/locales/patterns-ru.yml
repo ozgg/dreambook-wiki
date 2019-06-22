@@ -30,6 +30,8 @@ ru:
       word:
         body: "Текст"
         language: "Язык"
+        language_id: "Язык"
+        processed: "Обработано"
   admin:
     patterns:
       nav_item:
@@ -40,6 +42,8 @@ ru:
         title: "Образы снов, страница %{page}"
       show:
         title: "Образ сна «%{title}»"
+        words: "Слова"
+        words_string: "Слова строкой"
     pending_patterns:
       nav_item:
         description: "Управление очередью образов снов"
@@ -57,23 +61,19 @@ ru:
         heading: "Слова"
       show:
         title: "Слово «%{body}»"
+        patterns: "Образы"
+        patterns_string: "Образы строкой"
     index:
       dashboard:
         dreambook:
           heading: "Сонник"
   patterns:
-    new:
-      heading: "Новый образ"
-      nav_text: "Добавить"
-      title: "Добавление образа"
+    destroy:
+      success: "Образ сна удалён"
     edit:
       heading: "Редактирование образа"
       nav_text: "Редактировать"
       title: "Редактирование образа"
-    destroy:
-      success: "Образ сна удалён"
-    update:
-      success: "Образ сна изменён"
     form:
       guidelines:
         description: "Максимум 64кб текста."
@@ -81,20 +81,24 @@ ru:
         image_alt_text: "Максимум 255 символов"
         summary: "Максимум 255 символов."
         title: "Максимум 100 символов."
-  words:
     new:
-      heading: "Новое слово"
-      title: "Добавление слова"
-    edit:
-      heading: "Редактирование слова"
-      title: "Редактирование слова"
+      heading: "Новый образ"
+      nav_text: "Добавить"
+      title: "Добавление образа"
+  words:
     destroy:
       success: "Слово удалено"
-    update:
-      success: "Слово обновлено"
+    edit:
+      heading: "Редактирование слова"
+      nav_text: "Редактировать"
+      title: "Редактирование слова"
     form:
       guidelines:
-        body: "Максимум 100 символов."
+        body: "Максимум 150 символов."
+    new:
+      heading: "Новое слово"
+      nav_text: "Добавить"
+      title: "Добавление слова"
   wiki:
     index:
       title: "Содержание"

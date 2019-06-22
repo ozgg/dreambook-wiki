@@ -4,6 +4,7 @@
 #
 # Attributes:
 #   created_at [DateTime]
+#   data [Jsonb]
 #   language_id [Language]
 #   name [String]
 #   pattern_id [Pattern]
@@ -29,12 +30,6 @@ class PendingPattern < ApplicationRecord
     filtered(filter).list_for_administration.page(page)
   end
 
-  # @param [String] summary
-  def process!(summary)
-    pattern = Pattern.new(language: language, title: name, summary: summary)
-    update(pattern: pattern, processed: true) if pattern.save
-  end
-
   # @param [Array<String>] list
   # @param [Language] language
   def self.enqueue(list, language)
@@ -48,5 +43,24 @@ class PendingPattern < ApplicationRecord
         processed: !pattern.nil?
       )
     end
+  end
+
+  # @param [String] summary
+  def process!(summary)
+    pattern = Pattern.new(language: language, title: name, summary: summary)
+    if pattern.save
+      update(pattern: pattern, processed: true)
+      pattern.word_ids = data['words'] unless data['words'].blank?
+    else
+      Rails.logger.warn("Could not process pending pattern #{id} as #{summary}")
+    end
+  end
+
+  # @param [Word] entity
+  def add_word(entity)
+    words = Array(data['words'])
+    words << entity.id
+    data['words'] = words.uniq
+    save
   end
 end

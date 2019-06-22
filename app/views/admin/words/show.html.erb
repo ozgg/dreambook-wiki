@@ -1,0 +1,60 @@
+<% content_for :meta_title, t('.title', body: @entity.body) %>
+<% content_for :breadcrumbs do %>
+  <%= link_to(t('admin.words.nav_item.text'), admin_words_path) %>
+  <span><%= @entity.body %></span>
+<% end %>
+
+<article>
+  <h1><%= @entity.body %></h1>
+
+  <ul class="actions">
+    <li><%= back_icon(admin_words_path) %></li>
+    <li><%= edit_icon(edit_word_path(id: @entity.id)) %></li>
+    <li><%= create_icon(new_word_path) %></li>
+  </ul>
+
+  <dl>
+    <dt><%= t('.patterns_string') %></dt>
+    <dd>
+      <div class="link-state-container">
+        <%=
+          text_field_tag(
+              :string,
+              @entity.patterns_string,
+              id: nil,
+              data: {
+                  url: patterns_string_admin_word_path(id: @entity.id)
+              },
+              class: 'js-word-pattern-string',
+              autocomplete: 'off'
+          )
+        %>
+        <span class="state"></span>
+      </div>
+    </dd>
+    <%= render partial: 'shared/entity/timestamps', locals: { entity: @entity } %>
+  </dl>
+
+  <%=
+    render(
+        partial: 'shared/admin/toggleable',
+        locals: {
+            entity: @entity,
+            url: toggle_admin_word_path(id: @entity.id)
+        }
+    )
+  %>
+
+  <section>
+    <h2><%= t('.patterns') %></h2>
+
+    <%=
+      render(
+          partial: 'shared/admin/list',
+          locals: {
+              collection: @entity.patterns.list_for_administration
+          }
+      )
+    %>
+  </section>
+</article>

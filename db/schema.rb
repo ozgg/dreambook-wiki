@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_21_221931) do
+ActiveRecord::Schema.define(version: 2019_06_22_204227) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -274,6 +274,8 @@ ActiveRecord::Schema.define(version: 2019_06_21_221931) do
     t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.jsonb "data", default: {}, null: false
+    t.index ["data"], name: "index_pending_patterns_on_data", using: :gin
     t.index ["language_id"], name: "index_pending_patterns_on_language_id"
     t.index ["name"], name: "index_pending_patterns_on_name"
     t.index ["pattern_id"], name: "index_pending_patterns_on_pattern_id"

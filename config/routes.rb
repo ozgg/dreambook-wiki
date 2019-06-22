@@ -25,6 +25,7 @@ Rails.application.routes.draw do
   end
 
   resources :patterns, only: %i[update destroy]
+  resources :words, only: %i[update destroy]
 
   scope '(:locale)', constraints: { locale: /ru|en/ } do
     root 'index#index'
@@ -33,12 +34,18 @@ Rails.application.routes.draw do
     get 'w/:slug' => 'wiki#show', as: :wiki_show, constraints: { slug: /.+/ }
 
     resources :patterns, only: %i[new create edit], concerns: :check
+    resources :words, only: %i[new create edit], concerns: :check
 
     namespace :admin do
-      resources :patterns, only: %i[index show]
+      resources :patterns, only: %i[index show] do
+        put 'words_string', on: :member
+      end
       resources :pending_patterns, only: :index do
         post 'enqueue', on: :collection
         post 'summary', on: :member
+      end
+      resources :words, only: %i[index show], concerns: :toggle do
+        put 'patterns_string', on: :member
       end
     end
   end

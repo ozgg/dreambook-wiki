@@ -34,4 +34,16 @@ class Word < ApplicationRecord
   def self.entity_parameters
     %i[body language_id processed]
   end
+
+  def patterns_string
+    patterns.pluck(:title).join(', ')
+  end
+
+  # @param [String] value
+  def patterns_string=(value)
+    component = Biovision::Components::DreambookComponent
+    value.split(',').reject(&:blank?).map(&:strip).each do |body|
+      component.pattern_or_pending(body, language).add_word(self)
+    end
+  end
 end
