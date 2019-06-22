@@ -50,7 +50,8 @@ class PendingPattern < ApplicationRecord
     pattern = Pattern.new(language: language, title: name, summary: summary)
     if pattern.save
       update(pattern: pattern, processed: true)
-      pattern.word_ids = data['words'] unless data['words'].blank?
+
+      pattern.word_ids = Word.where(id: Array(data['words'])).pluck(:id)
     else
       Rails.logger.warn("Could not process pending pattern #{id} as #{summary}")
     end
