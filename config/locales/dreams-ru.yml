@@ -1,0 +1,25 @@
+ru:
+  activerecord:
+    models:
+      dream: "Сон"
+      dream_pattern: "Образ во сне"
+      dream_word: "Слово во сне"
+    attributes:
+      dream:
+        body: "Сюжет"
+        language: "Язык"
+        personal: "Личный"
+        title: "Название"
+        user: "Пользователь"
+        uuid: "UUID"
+      dream_pattern:
+        dream: "Сон"
+        dream_id: "Сон"
+        pattern: "Образ"
+        pattern_id: "Образ"
+      dream_word:
+        dream: "Сон"
+        dream_id: "Сон"
+        weight: "Вес"
+        word: "Слово"
+        word_id: "Слово"

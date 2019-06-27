@@ -1,8 +1,8 @@
 GIT
   remote: https://github.com/Biovision/biovision-base.git
-  revision: 9d2e10c48f84601bcaa643ebe12d622883540f27
+  revision: 00bdf33b8bf6b4e38f9a83d126e764624954ef8f
   specs:
-    biovision-base (0.38.190620.0)
+    biovision-base (0.38.190627.1)
       bcrypt (~> 3.1)
       carrierwave (~> 1.2)
       carrierwave-bombshelter (~> 0.2)
@@ -83,9 +83,9 @@ GEM
     crass (1.0.4)
     database_cleaner (1.7.0)
     diff-lcs (1.3)
-    dotenv (2.7.2)
-    dotenv-rails (2.7.2)
-      dotenv (= 2.7.2)
+    dotenv (2.7.4)
+    dotenv-rails (2.7.4)
+      dotenv (= 2.7.4)
       railties (>= 3.2, < 6.1)
     erubi (1.8.0)
     execjs (2.7.0)
