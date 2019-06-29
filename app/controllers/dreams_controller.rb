@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # Managing dreams
-class DreamsController < ApplicationController
+class DreamsController < AdminController
   before_action :restrict_anonymous_access, only: %i[new create]
   before_action :set_entity, only: %i[show edit update destroy]
   before_action :restrict_editing, only: %i[edit update destroy]
@@ -31,6 +31,11 @@ class DreamsController < ApplicationController
     else
       form_processed_with_error(:new)
     end
+  end
+
+  # get /dreams/:id
+  def show
+    handle_http_403('Cannot show dream') unless @entity.visible_to?(current_user)
   end
 
   # get /dreams/:id/edit

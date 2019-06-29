@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_22_204227) do
+ActiveRecord::Schema.define(version: 2019_06_27_190000) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -89,6 +89,42 @@ ActiveRecord::Schema.define(version: 2019_06_22_204227) do
     t.index ["code_type_id"], name: "index_codes_on_code_type_id"
     t.index ["data"], name: "index_codes_on_data", using: :gin
     t.index ["user_id"], name: "index_codes_on_user_id"
+  end
+
+  create_table "dream_patterns", comment: "Pattern occurring in dream", force: :cascade do |t|
+    t.bigint "dream_id", null: false
+    t.bigint "pattern_id", null: false
+    t.integer "weight", default: 1, null: false
+    t.index ["dream_id"], name: "index_dream_patterns_on_dream_id"
+    t.index ["pattern_id"], name: "index_dream_patterns_on_pattern_id"
+  end
+
+  create_table "dream_words", comment: "Word occurring in dream", force: :cascade do |t|
+    t.bigint "dream_id", null: false
+    t.bigint "word_id", null: false
+    t.integer "weight", default: 1, null: false
+    t.index ["dream_id"], name: "index_dream_words_on_dream_id"
+    t.index ["word_id"], name: "index_dream_words_on_word_id"
+  end
+
+  create_table "dreams", comment: "Dreams", force: :cascade do |t|
+    t.uuid "uuid", null: false
+    t.bigint "language_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "agent_id"
+    t.inet "ip"
+    t.boolean "personal", default: false, null: false
+    t.integer "comments_count", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "title"
+    t.text "body", null: false
+    t.jsonb "data", default: {}, null: false
+    t.index ["agent_id"], name: "index_dreams_on_agent_id"
+    t.index ["data"], name: "index_dreams_on_data", using: :gin
+    t.index ["language_id"], name: "index_dreams_on_language_id"
+    t.index ["user_id"], name: "index_dreams_on_user_id"
+    t.index ["uuid"], name: "index_dreams_on_uuid"
   end
 
   create_table "editable_pages", comment: "Editable page", force: :cascade do |t|
@@ -261,6 +297,7 @@ ActiveRecord::Schema.define(version: 2019_06_22_204227) do
     t.string "summary", null: false
     t.text "description"
     t.jsonb "data", default: {}, null: false
+    t.integer "dreams_count", default: 0, null: false
     t.index ["data"], name: "index_patterns_on_data", using: :gin
     t.index ["language_id"], name: "index_patterns_on_language_id"
     t.index ["slug", "language_id"], name: "index_patterns_on_slug_and_language_id", unique: true
@@ -275,6 +312,7 @@ ActiveRecord::Schema.define(version: 2019_06_22_204227) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.jsonb "data", default: {}, null: false
+    t.integer "weight", default: 0, null: false
     t.index ["data"], name: "index_pending_patterns_on_data", using: :gin
     t.index ["language_id"], name: "index_pending_patterns_on_language_id"
     t.index ["name"], name: "index_pending_patterns_on_name"
@@ -412,6 +450,7 @@ ActiveRecord::Schema.define(version: 2019_06_22_204227) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "body", null: false
+    t.integer "dreams_count", default: 0, null: false
     t.index ["body", "language_id"], name: "index_words_on_body_and_language_id", unique: true
     t.index ["language_id"], name: "index_words_on_language_id"
   end
@@ -421,6 +460,13 @@ ActiveRecord::Schema.define(version: 2019_06_22_204227) do
   add_foreign_key "codes", "agents", on_update: :cascade, on_delete: :nullify
   add_foreign_key "codes", "code_types", on_update: :cascade, on_delete: :cascade
   add_foreign_key "codes", "users", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "dream_patterns", "dreams", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "dream_patterns", "patterns", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "dream_words", "dreams", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "dream_words", "words", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "dreams", "agents", on_update: :cascade, on_delete: :nullify
+  add_foreign_key "dreams", "languages", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "dreams", "users", on_update: :cascade, on_delete: :cascade
   add_foreign_key "editable_pages", "languages", on_update: :cascade, on_delete: :cascade
   add_foreign_key "feedback_requests", "agents", on_update: :cascade, on_delete: :nullify
   add_foreign_key "feedback_requests", "languages", on_update: :cascade, on_delete: :nullify

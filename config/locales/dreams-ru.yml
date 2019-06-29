@@ -43,10 +43,14 @@ ru:
       heading: "Редактирование сна"
     index:
       nav_text: "Сны"
+      title: "Сны, страница %{page}"
+      heading: "Сны"
     new:
       title: "Добавление сна"
       nav_text: "Описать сон"
       heading: "Новый сон"
+    show:
+      title: "Сон «%{title}»"
   admin:
     index:
       dashboard:
