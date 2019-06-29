@@ -54,6 +54,7 @@ class CreateDreams < ActiveRecord::Migration[5.2]
     create_table :dream_patterns, comment: 'Pattern occurring in dream' do |t|
       t.references :dream, null: false, foreign_key: { on_update: :cascade, on_delete: :cascade }
       t.references :pattern, null: false, foreign_key: { on_update: :cascade, on_delete: :cascade }
+      t.integer :weight, default: 1, null: false
     end
   end
 

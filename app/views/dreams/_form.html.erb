@@ -1,0 +1,58 @@
+<% model_name = entity.class.to_s.underscore %>
+<%=
+  form_with(
+      model: entity,
+      html: {
+          id: "#{model_name}-form",
+          data: { check_url: check_dreams_path }
+      }
+  ) do |f|
+%>
+  <%= render partial: 'shared/list_of_errors', locals: { entity: entity } %>
+
+  <dl>
+    <dt><%= f.label :title %></dt>
+    <dd>
+      <%=
+        f.text_field(
+            :title,
+            id: "#{model_name}_title",
+            size: nil,
+            maxlength: Dream::TITLE_LIMIT,
+            data: {
+                check: :title
+            }
+        )
+      %>
+      <div class="check-result-error" data-field="title"></div>
+      <div class="guideline"><%= t('.guidelines.title') %></div>
+    </dd>
+
+    <dt><%= f.label :body %></dt>
+    <dd>
+      <%=
+        f.text_area(
+            :body,
+            id: "#{model_name}_body",
+            cols: 80,
+            rows: 10,
+            class: 'auto-expand',
+            data: {
+                check: :body,
+                min_rows: 10,
+                max_rows: 40
+            }
+        )
+      %>
+      <div class="check-result-error" data-field="body"></div>
+      <div class="guideline"><%= t('.guidelines.body') %></div>
+    </dd>
+  </dl>
+
+  <%= render 'shared/forms/state_container' %>
+
+  <div class="buttons">
+    <%= hidden_field_tag :entity_id, entity.id %>
+    <%= f.button t(:save), type: :submit, class: 'button-save' %>
+  </div>
+<% end %>

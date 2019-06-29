@@ -1,0 +1,36 @@
+<% content_for :meta_title, t('.title', title: @entity.title!) %>
+<% content_for :breadcrumbs do %>
+  <%= link_to(t('admin.dreams.nav_item.text'), admin_dreams_path) %>
+  <span><%= @entity.title %></span>
+<% end %>
+
+<article>
+  <h1><%= @entity.title %></h1>
+
+  <ul class="actions">
+    <li><%= back_icon(admin_dreams_path) %></li>
+    <li><%= edit_icon(edit_dream_path(id: @entity.id)) %></li>
+    <li><%= create_icon(new_dream_path) %></li>
+  </ul>
+
+  <dl>
+    <dt><%= t('activerecord.attributes.dream.user') %></dt>
+    <dd><%= admin_user_link(@entity.user) %></dd>
+
+    <% unless @entity.title.blank? %>
+      <dt><%= t('activerecord.attributes.dream.title') %></dt>
+      <dd><%= @entity.title %></dd>
+    <% end %>
+
+    <dt><%= t('activerecord.attributes.dream.body') %></dt>
+    <dd>
+      <div class="text">
+        <%= simple_format @entity.body %>
+      </div>
+    </dd>
+
+    <%= render partial: 'shared/entity/timestamps', locals: { entity: @entity } %>
+  </dl>
+
+  <%= render partial: 'shared/track', locals: { item: @entity } %>
+</article>

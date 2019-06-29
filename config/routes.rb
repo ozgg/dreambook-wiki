@@ -26,6 +26,7 @@ Rails.application.routes.draw do
 
   resources :patterns, only: %i[update destroy]
   resources :words, only: %i[update destroy]
+  resources :dreams, only: %i[update destroy]
 
   scope '(:locale)', constraints: { locale: /ru|en/ } do
     root 'index#index'
@@ -35,6 +36,7 @@ Rails.application.routes.draw do
 
     resources :patterns, only: %i[new create edit], concerns: :check
     resources :words, only: %i[new create edit], concerns: :check
+    resources :dreams, except: %i[update destroy], concerns: :check
 
     namespace :admin do
       resources :patterns, only: %i[index show] do
@@ -47,6 +49,11 @@ Rails.application.routes.draw do
       resources :words, only: %i[index show], concerns: :toggle do
         put 'patterns_string', on: :member
       end
+      resources :dreams, only: %i[index show]
+    end
+
+    namespace :my do
+      resources :dreams, only: %i[index show]
     end
   end
 end

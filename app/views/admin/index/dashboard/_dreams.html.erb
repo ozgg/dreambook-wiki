@@ -1,0 +1,8 @@
+<% if Biovision::Components::DreamsComponent.allow?(current_user) %>
+  <nav>
+    <h3><%= t('.heading') %></h3>
+    <ul>
+      <li><%= render 'admin/dreams/nav_item' %></li>
+    </ul>
+  </nav>
+<% end %>

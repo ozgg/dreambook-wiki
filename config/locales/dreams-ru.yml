@@ -1,4 +1,10 @@
 ru:
+  dream_count:
+    zero: "Снов нет"
+    one: "%{count} сон"
+    few: "%{count} сна"
+    many: "%{count} снов"
+    other: "%{count} снов"
   activerecord:
     models:
       dream: "Сон"
@@ -23,3 +29,35 @@ ru:
         weight: "Вес"
         word: "Слово"
         word_id: "Слово"
+  dreams:
+    untitled: "Без названия"
+    destroy:
+      success: "Сон удалён"
+    form:
+      guidelines:
+        title: "Дайте название сну для удобства. Максиум 250 символов."
+        body: "Опишите сюжет сна. Максимум 64кБ текста."
+    edit:
+      nav_text: "Редактировать"
+      title: "Редактирование сна"
+      heading: "Редактирование сна"
+    index:
+      nav_text: "Сны"
+    new:
+      title: "Добавление сна"
+      nav_text: "Описать сон"
+      heading: "Новый сон"
+  admin:
+    index:
+      dashboard:
+        dreams:
+          heading: "Сны"
+    dreams:
+      nav_item:
+        text: "Все сны"
+        description: "Просмотр всех описанных пользователями снов"
+      index:
+        title: "Сны, страница %{page}"
+        heading: "Сны пользователей"
+      show:
+        title: "Сон «%{title}»"
