@@ -1,0 +1,24 @@
+<section>
+  <h2><%= t('.heading') %></h2>
+
+  <table>
+    <colgroup>
+      <col/>
+      <col/>
+    </colgroup>
+    <thead>
+    <tr>
+      <th><%= t('activerecord.attributes.dream_pattern.weight') %></th>
+      <th><%= t('activerecord.attributes.dream_pattern.pattern') %></th>
+    </tr>
+    </thead>
+    <tbody>
+    <% collection.each do |link| %>
+      <tr>
+        <th><%= link.weight %></th>
+        <td><%= admin_pattern_link(link.pattern) %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</section>

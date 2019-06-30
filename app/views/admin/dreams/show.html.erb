@@ -33,4 +33,22 @@
   </dl>
 
   <%= render partial: 'shared/track', locals: { item: @entity } %>
+
+  <%=
+    render(
+        partial: 'admin/dreams/entity/patterns',
+        locals: {
+            collection: @entity.dream_patterns.ordered_by_weight
+        }
+    )
+  %>
+
+  <%=
+    render(
+        partial: 'admin/dreams/entity/words',
+        locals: {
+            collection: @entity.dream_words.ordered_by_weight
+        }
+    )
+  %>
 </article>

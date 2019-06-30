@@ -23,6 +23,7 @@ ru:
         dream_id: "Сон"
         pattern: "Образ"
         pattern_id: "Образ"
+        weight: "Вес"
       dream_word:
         dream: "Сон"
         dream_id: "Сон"
@@ -65,3 +66,8 @@ ru:
         heading: "Сны пользователей"
       show:
         title: "Сон «%{title}»"
+      entity:
+        words:
+          heading: "Слова"
+        patterns:
+          heading: "Образы"

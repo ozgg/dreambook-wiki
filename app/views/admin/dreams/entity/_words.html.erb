@@ -1,0 +1,24 @@
+<section>
+  <h2><%= t('.heading') %></h2>
+
+  <table>
+    <colgroup>
+      <col/>
+      <col/>
+    </colgroup>
+    <thead>
+    <tr>
+      <th><%= t('activerecord.attributes.dream_word.weight') %></th>
+      <th><%= t('activerecord.attributes.dream_word.word') %></th>
+    </tr>
+    </thead>
+    <tbody>
+    <% collection.each do |link| %>
+      <tr>
+        <th><%= link.weight %></th>
+        <td><%= admin_word_link(link.word) %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</section>

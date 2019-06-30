@@ -27,6 +27,8 @@ class Pattern < ApplicationRecord
   belongs_to :language
   has_many :pattern_words, dependent: :destroy
   has_many :words, through: :pattern_words
+  has_many :dream_patterns, dependent: :delete_all
+  has_many :dreams, through: :dream_patterns
 
   before_validation { self.slug = title.to_s.downcase }
 
@@ -63,5 +65,13 @@ class Pattern < ApplicationRecord
       new_ids << Word.find_or_create_by(body: body, language: language)&.id
     end
     self.word_ids = new_ids.uniq
+  end
+
+  # @param [Dream] dream
+  # @param [Integer] weight
+  def link_dream(dream, weight = 1)
+    link = dream_patterns.find_or_initialize_by(dream: dream)
+    link.weight = weight
+    link.save
   end
 end

@@ -21,6 +21,8 @@ class Word < ApplicationRecord
   belongs_to :language
   has_many :pattern_words, dependent: :destroy
   has_many :patterns, through: :pattern_words
+  has_many :dream_words, dependent: :delete_all
+  has_many :dreams, through: :dream_words
 
   before_validation { self.body = body.to_s.downcase }
 
