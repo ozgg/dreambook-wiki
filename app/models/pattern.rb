@@ -6,6 +6,7 @@
 #   created_at [DateTime]
 #   data [jsonb]
 #   description [text], optional
+#   dreams_count [Integer]
 #   image [SimpleImageUploader], optional
 #   image_alt_text [string], optional
 #   language_id [Language]

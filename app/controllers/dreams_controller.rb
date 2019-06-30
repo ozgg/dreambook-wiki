@@ -27,6 +27,7 @@ class DreamsController < AdminController
   def create
     @entity = Dream.new(creation_parameters)
     if @entity.save
+      AnalyzeDreamWordsJob.perform_later(@entity.id)
       form_processed_ok(dream_path(id: @entity.id))
     else
       form_processed_with_error(:new)
@@ -45,6 +46,7 @@ class DreamsController < AdminController
   # patch /dreams/:id
   def update
     if @entity.update(entity_parameters)
+      AnalyzeDreamWordsJob.perform_later(@entity.id)
       form_processed_ok(dream_path(id: @entity.id))
     else
       form_processed_with_error(:edit)

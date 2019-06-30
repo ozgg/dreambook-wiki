@@ -50,8 +50,7 @@ class PendingPattern < ApplicationRecord
     pattern = Pattern.new(language: language, title: name, summary: summary)
     if pattern.save
       update(pattern: pattern, processed: true)
-
-      pattern.word_ids = Word.where(id: Array(data['words'])).pluck(:id)
+      link_words
     else
       Rails.logger.warn("Could not process pending pattern #{id} as #{summary}")
     end
@@ -63,5 +62,17 @@ class PendingPattern < ApplicationRecord
     words << entity.id
     data['words'] = words.uniq
     save
+  end
+
+  private
+
+  def link_words
+    words = Word.where(id: Array(data['words']))
+    new_ids = words.pluck(:id)
+    old_ids = pattern.word_ids
+    pattern.word_ids = new_ids
+    Word.where(id: new_ids - old_ids).each do |word|
+      word.increment_pattern_weights(pattern)
+    end
   end
 end

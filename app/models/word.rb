@@ -30,7 +30,7 @@ class Word < ApplicationRecord
   validates_presence_of :body
   validates_length_of :body, maximum: BODY_LIMIT
 
-  scope :ordered_by_weight, -> { order('weight desc') }
+  scope :ordered_by_weight, -> { order('dreams_count desc') }
   scope :list_for_administration, -> { ordered_by_weight }
 
   def self.entity_parameters
@@ -46,6 +46,13 @@ class Word < ApplicationRecord
     component = Biovision::Components::DreambookComponent
     value.split(',').reject(&:blank?).map(&:strip).each do |body|
       component.pattern_or_pending(body, language).add_word(self)
+    end
+  end
+
+  # @param [Pattern] pattern
+  def increment_pattern_weights(pattern)
+    dream_words.each do |link|
+      pattern.link_dream(link.dream, link.weight)
     end
   end
 end
