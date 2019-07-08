@@ -35,5 +35,41 @@
       background-color: rgb(16, 220, 0);
     }
   }
+}
 
+.filter-form {
+  font-size: var(--font-size-decreased);
+
+  fieldset {
+    border: $border-secondary;
+    margin: var(--spacer-xxs);
+    padding: var(--spacer-s);
+  }
+
+  legend {
+    font-size: var(--font-size-normal);
+    line-height: 1.1;
+  }
+
+  .field {
+    border: $border-secondary;
+    margin: var(--spacer-xxs);
+    padding: var(--spacer-xs);
+    transform: translate(0, calc(var(--font-size-normal) / 2));
+
+    label {
+      display: block;
+      margin: 0 0 var(--spacer-xs);
+    }
+  }
+
+  .fields {
+    align-items: flex-start;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .buttons {
+    padding: var(--spacer-s) 0 0;
+  }
 }

@@ -8,7 +8,8 @@ class Admin::WordsController < AdminController
 
   # get /admin/words
   def index
-    @collection = Word.list_for_administration.page(current_page)
+    @filter = params[:filter]&.permit!.to_h
+    @collection = Word.filtered(@filter).list_for_administration.page(current_page)
   end
 
   # get /admin/words/:id

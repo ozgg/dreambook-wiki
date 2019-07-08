@@ -10,6 +10,8 @@
     <li><%= create_icon(new_word_path) %></li>
   </ul>
 
+  <%= render(partial: 'admin/words/filter', locals: { filter: @filter }) %>
+
   <%= paginate @collection %>
   <%=
     render(

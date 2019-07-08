@@ -32,6 +32,9 @@ class Word < ApplicationRecord
 
   scope :ordered_by_weight, -> { order('dreams_count desc') }
   scope :list_for_administration, -> { ordered_by_weight }
+  scope :processed, ->(v) { where(processed: v.to_i.positive?) unless v.blank? }
+  scope :body_like, ->(v) { where('body ilike ?', "%#{v}%") unless v.blank? }
+  scope :filtered, ->(f) { processed(f[:processed]).body_like(f[:body]) }
 
   def self.entity_parameters
     %i[body language_id processed]
