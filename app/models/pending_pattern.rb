@@ -61,6 +61,7 @@ class PendingPattern < ApplicationRecord
   # @param [Word] entity
   def add_word(entity)
     words = Array(data['words'])
+    self.weight += entity.dreams_count unless words.include?(entity.id)
     words << entity.id
     data['words'] = words.uniq
     save
