@@ -1,5 +1,8 @@
 <div class="data">
-  <div><%= entity.pattern.nil? ? entity.name : admin_pattern_link(entity.pattern) %></div>
+  <div>
+    [<%= entity.weight %>]
+    <%= entity.pattern.nil? ? entity.name : admin_pattern_link(entity.pattern) %>
+  </div>
   <div class="info">
     <% if entity.processed? %>
       <%= entity.pattern&.summary %>
@@ -14,7 +17,8 @@
               data: {
                   url: summary_admin_pending_pattern_path(id: entity.id)
               },
-              autocomplete: 'off'
+              autocomplete: 'off',
+              placeholder: t('activerecord.attributes.pattern.summary')
           )
         %>
         <span class="state"></span>

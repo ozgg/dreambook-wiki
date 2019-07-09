@@ -6,7 +6,8 @@ class Admin::PatternsController < AdminController
 
   # get /admin/patterns
   def index
-    @collection = Pattern.list_for_administration.page(current_page)
+    @filter = params[:filter]&.permit!.to_h
+    @collection = Pattern.filtered(@filter).list_for_administration.page(current_page)
   end
 
   # get /admin/patterns/:id

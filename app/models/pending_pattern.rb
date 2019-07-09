@@ -10,6 +10,7 @@
 #   pattern_id [Pattern]
 #   processed [Boolean]
 #   updated_at [DateTime]
+#   weight [Integer]
 class PendingPattern < ApplicationRecord
   NAME_LIMIT = 100
 
@@ -21,8 +22,9 @@ class PendingPattern < ApplicationRecord
   validates_uniqueness_of :name, scope: :language_id, case_sensitive: false
 
   scope :processed, ->(v = true) { where(processed: [true, false].include?(v) ? v : v.to_i.positive?) unless v.to_s.blank? }
-  scope :list_for_administration, -> { order('processed asc, name asc') }
-  scope :filtered, ->(f) { processed(f[:processed]) }
+  scope :name_like, ->(v) { where('name ilike ?', "%#{v}%") unless v.blank? }
+  scope :list_for_administration, -> { order('processed asc, weight desc, name asc') }
+  scope :filtered, ->(f) { processed(f[:processed]).name_like(f[:name]) }
 
   # @param [Integer] page
   # @param [Hash] filter

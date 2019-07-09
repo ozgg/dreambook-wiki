@@ -1,0 +1,24 @@
+<%=
+  form_with(
+      url: url_for,
+      scope: :filter,
+      local: true,
+      method: :get,
+      html: {
+          class: 'filter-form'
+      }
+  ) do |f|
+%>
+  <fieldset>
+    <legend><%= t(:filter) %></legend>
+    <div class="fields">
+      <div class="field">
+        <%= f.label :title, t('activerecord.attributes.pattern.title') %>
+        <%= f.text_field :title, value: filter[:title] %>
+      </div>
+    </div>
+    <div class="buttons">
+      <%= f.button t(:submit), type: :submit %>
+    </div>
+  </fieldset>
+<% end %>

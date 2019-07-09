@@ -42,9 +42,11 @@ class Pattern < ApplicationRecord
 
   scope :letter, ->(v) { where('title ilike ?', "#{v[0]}%") unless v.blank? }
   scope :with_title, ->(v) { where('lower(title) = lower(?)', v) unless v.blank? }
+  scope :title_like, ->(v) { where('title ilike ?', "%#{v}%") unless v.blank? }
   scope :ordered_by_title, -> { order('title asc') }
   scope :list_for_visitors, -> { ordered_by_title }
   scope :list_for_administration, -> { ordered_by_title }
+  scope :filtered, ->(f) { title_like(f[:title]) }
 
   def self.entity_parameters
     %i[description image image_alt_text language_id summary title]

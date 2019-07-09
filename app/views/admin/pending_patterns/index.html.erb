@@ -9,6 +9,8 @@
     <li><%= back_icon(admin_path) %></li>
   </ul>
 
+  <%= render(partial: 'admin/pending_patterns/filter', locals: { filter: @filter }) %>
+
   <%= paginate @collection %>
   <%=
     render(

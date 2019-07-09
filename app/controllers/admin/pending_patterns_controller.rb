@@ -6,7 +6,7 @@ class Admin::PendingPatternsController < AdminController
 
   # get /admin/pending_patterns
   def index
-    @filter = params[:filter].to_h
+    @filter = params[:filter]&.permit!.to_h
     @collection = PendingPattern.page_for_administration(current_page, @filter)
   end
 

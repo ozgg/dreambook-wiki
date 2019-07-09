@@ -10,6 +10,8 @@
     <li><%= create_icon(new_pattern_path) %></li>
   </ul>
 
+  <%= render(partial: 'admin/patterns/filter', locals: { filter: @filter }) %>
+
   <%= paginate @collection %>
   <%=
     render(
