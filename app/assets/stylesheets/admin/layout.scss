@@ -24,7 +24,7 @@
     width: var(--spacer-s);
 
     &.processing {
-      background-color: rgb(255, 220, 0);
+      animation: processing-state 2s infinite alternate;
     }
 
     &.failed {
@@ -34,6 +34,16 @@
     &.processed {
       background-color: rgb(16, 220, 0);
     }
+  }
+}
+
+@keyframes processing-state {
+  from {
+    background-color: rgba(200, 180, 0, .25);
+  }
+
+  to {
+    background-color: rgba(255, 220, 0, 1);
   }
 }
 

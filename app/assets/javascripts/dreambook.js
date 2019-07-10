@@ -1,11 +1,21 @@
 "use strict";
 
+/**
+ * Dreambook front-end features
+ *
+ * @type {Object}
+ */
 const Dreambook = {
     initialized: false,
     components: {},
     autoInitComponents: true
 };
 
+/**
+ * Enqueue list of pending patterns
+ *
+ * @type {Object}
+ */
 Dreambook.components.pendingPatternEnqueue = {
     initialized: false,
     selector: ".js-pattern-queue-container",
@@ -28,12 +38,17 @@ Dreambook.components.pendingPatternEnqueue = {
         const request = Biovision.jsonAjaxRequest("post", url, function () {
             component.textarea.value = "";
             component.button.disabled = false;
-        });
+        }, Biovision.handleAjaxFailure);
         component.button.disabled = true;
         request.send(JSON.stringify({list: component.textarea.value}));
     }
 };
 
+/**
+ * Quickly resolve pending pattern with summary
+ *
+ * @type {Object}
+ */
 Dreambook.components.pendingPatternSummary = {
     initialized: false,
     selector: ".js-pending-pattern-summary",
@@ -69,6 +84,7 @@ Dreambook.components.pendingPatternSummary = {
             input.readonly = true;
 
             if (!state.classList.contains("processing")) {
+                state.classList.add("processing");
                 request.send(JSON.stringify({summary: input.value}));
             }
         }
