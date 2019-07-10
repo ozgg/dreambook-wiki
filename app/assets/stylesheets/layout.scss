@@ -14,3 +14,9 @@ h5,
 h6 {
   font-weight: 500;
 }
+
+@import "application/header";
+@import "application/footer";
+@import "components/carousel";
+@import "application/homepage";
+@import "application/patterns";

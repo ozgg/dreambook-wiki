@@ -1,0 +1,14 @@
+/* TEAM */
+    Developer and interpreter: Maxim J. Khan-Magomedov
+    Contact: maxim.km@gmail.com
+    Github: https://github.com/ozgg
+    From: Moscow, Russia
+
+/* SITE */
+    Language: Russian
+    Doctype: HTML5, JSON (for /w)
+    CMS: Biovision (RoR)
+    IDE: RubyMine
+
+/* Yandex Money */
+    41001190110894
