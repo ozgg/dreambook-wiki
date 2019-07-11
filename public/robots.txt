@@ -3,3 +3,5 @@ Allow: /
 Disallow: /admin
 Disallow: /auth
 Disallow: /my
+
+Host: https://dreambook.wiki
