@@ -54,7 +54,8 @@ class Pattern < ApplicationRecord
 
   # @param [Word] entity
   def add_word(entity)
-    self.dream_ids += entity.dream_ids if pattern_words.create(word: entity)
+    link = pattern_words.create(word: entity)
+    self.dream_ids = (dream_ids + entity.dream_ids).uniq if link
   end
 
   def words_string
